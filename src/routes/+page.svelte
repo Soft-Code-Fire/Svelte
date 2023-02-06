@@ -10,7 +10,7 @@
 
 <main>
     <Button on:click={IncrementCount} class='gap-3'>{count}</Button>
-    <h1>Svelte</h1>
+    <h1>Svelte - Deployed from VERCEL</h1>
 </main>
 
 <style>
