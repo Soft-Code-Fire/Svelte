@@ -1,6 +1,6 @@
 <script lang="ts">
     //@ts-nocheck
-    import { isLoggedIn } from "../routes/stores/authStore";
+    import { isLoggedIn } from "../routes/stores/authStoretjs";
     import { goto } from "$app/navigation";
     import { getAuth, signOut } from "firebase/auth";
      const auth = getAuth();
@@ -44,6 +44,9 @@
             <NavLink href='/blogs'>Blogs</NavLink>
         </NavItem>
       </Nav>
+      <NavItem>
+        <NavLink href='/todo'>Todos</NavLink>
+      </NavItem>
       {#if $isLoggedIn}
         <NavItem>
                 <a href="/"

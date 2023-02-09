@@ -2,7 +2,6 @@
     //@ts-nocheck
     import { goto } from '$app/navigation'
     import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-    import { Form, FormGroup, FormText, Input, Label} from 'sveltestrap';
 
     export let title;
 
