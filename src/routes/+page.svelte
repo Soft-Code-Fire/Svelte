@@ -9,8 +9,8 @@
 </script>
 
 <main>
-    <Button on:click={IncrementCount} class='gap-3'>{count}</Button>
-    <h1>Svelte - Deployed from VERCEL</h1>
+    <Button on:click={IncrementCount} class='text-3xl'>{count}</Button>
+    <h1 class="text-red-500 text-3xl">Svelte - Deployed from VERCEL</h1>
 </main>
 
 <style>

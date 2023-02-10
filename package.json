@@ -41,6 +41,7 @@
 		"node": "^18.13.0",
 		"popper.js": "^1.16.1",
 		"sveltestrap": "^5.10.0",
+		"tw-elements": "1.0.0-alpha13",
 		"vercel": "^28.15.1"
 	}
 }

@@ -1,6 +1,9 @@
-<script lang="ts">
-    //@ts-nocheck
-    import { isLoggedIn } from "../routes/stores/authStoretjs";
+<svelte:head>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
+</svelte:head>
+
+<script>
+    import { isLoggedIn } from "../routes/stores/authStore.js";
     import { goto } from "$app/navigation";
     import { getAuth, signOut } from "firebase/auth";
      const auth = getAuth();
@@ -14,46 +17,27 @@
             console.error(error);
         });
   }
+</script>
 
-    import {
-      Collapse,
-      Navbar,
-      NavbarToggler,
-      NavbarBrand,
-      Nav,
-      NavItem,
-      NavLink,
-    } from 'sveltestrap';
-
-    let isOpen = false;
-
-    function handleUpdate(event) {
-      isOpen = event.detail.isOpen;
-    }
-  </script>
-
-  <Navbar color="light" light expand="md">
-    <NavbarBrand href="/">Home</NavbarBrand>
-    <NavbarToggler on:click={() => (isOpen = !isOpen)} />
-    <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
-      <Nav class="ms-auto" navbar>
-        <NavItem>
-          <NavLink href="/about">About</NavLink>
-        </NavItem>
-        <NavItem>
-            <NavLink href='/blogs'>Blogs</NavLink>
-        </NavItem>
-      </Nav>
-      <NavItem>
-        <NavLink href='/todo'>Todos</NavLink>
-      </NavItem>
-      {#if $isLoggedIn}
-        <NavItem>
+<main>
+    <nav>
+        <ul>
+          <li><strong class="text-3xl">Sveltekit</strong></li>
+        </ul>
+        <ul>
+          <li><a href="/" role="button">Home</a></li>
+          <li><a href="/about" role="button">About</a></li>
+          <li><a href="/blogs" role="button">Blogs</a></li>
+          <li><a href="/todos" role="button">Todos</a></li>
+          {#if $isLoggedIn}
+            <li>
                 <a href="/"
                     on:click|preventDefault={logout}
                     class="nav-link"
+                    role='button'
                 >Logout</a>
-        </NavItem>
+            </li>
       {/if}
-    </Collapse>
-  </Navbar>
+        </ul>
+      </nav>
+</main>

@@ -63,7 +63,7 @@
               placeholder="Password"
             />
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary text-blue-500">Submit</button>
         </form>
         {#if title == "Login"}
           <p class="float-end mt-3">
