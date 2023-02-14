@@ -1,43 +1,27 @@
-<svelte:head>
-    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
-</svelte:head>
-
 <script>
-    import { isLoggedIn } from "../routes/stores/authStore.js";
-    import { goto } from "$app/navigation";
-    import { getAuth, signOut } from "firebase/auth";
-     const auth = getAuth();
-    function logout() {
-        signOut(auth)
-            .then(() => {
-            localStorage.removeItem("uid");
-            goto("/login");
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-  }
+    import {supabase} from "../supabase.js";
+
+    const logout = () => {
+        console.log("logging out")
+        supabase.auth.signOut();
+    }
 </script>
 
-<main>
-    <nav>
-        <ul>
-          <li><strong class="text-3xl">Sveltekit</strong></li>
-        </ul>
-        <ul>
-          <li><a href="/" role="button">Home</a></li>
-          <li><a href="/about" role="button">About</a></li>
-          <li><a href="/blogs" role="button">Blogs</a></li>
-          <li><a href="/todos" role="button">Todos</a></li>
-          {#if $isLoggedIn}
-            <li>
-                <a href="/"
-                    on:click|preventDefault={logout}
-                    class="nav-link"
-                    role='button'
-                >Logout</a>
-            </li>
-      {/if}
-        </ul>
-      </nav>
+<main class="my-4 flex justify-end">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/" role="button">Home</a></li>
+                <li><a href="/about" role="button">About</a></li>
+                <li><a href="/blogs" role="button">Blogs</a></li>
+                <li><a href="/todo" role="button">Todo</a></li>
+                <li><a href="/" type="submit" role="button"
+                    class="shadow-sm rounded bg-blue-500 hover:bg-blue-600 text-white py-2 px-4"
+                    on:click={logout}
+                >
+                    Log Out ></a></li>
+
+            </ul>
+        </nav>
+    </header>
 </main>

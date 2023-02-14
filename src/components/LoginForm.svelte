@@ -1,98 +1,91 @@
-<script lang="ts">
-    //@ts-nocheck
-    import { goto } from '$app/navigation'
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+<script>
+    import { supabase } from "$lib/external/supa";
+    import { goto } from "$app/navigation";
+
+    let email = "";
+    let password = "";
 
     export let title;
 
-    const auth = getAuth()
-
-    function login() {
-        let email = document.getElementById('emailInput').value;
-        let password = document.getElementById('passInput').value;
-        if(title == "Login") {
-            signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-                    const user = userCredential.user;
-                    localStorage.setItem("uid", user.uid);
-                    goto("/")
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
+    async function handleLogin() {
+      if (title == "Login") {
+        const { user, error } = await supabase.auth.signIn({
+          email: email,
+          password: password,
+        });
+        if (user) {
+          goto("/dashboard");
         } else {
-            createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
-                    const user = userCredential.user;
-                    localStorage.setItem("uid", user.uid);
-                    goto("/")
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
+          console.log(error);
         }
-
+      } else {
+        const { user, error } = await supabase.auth.signUp({
+          email: email,
+          password: password,
+        });
+        if (user) {
+          goto("/dashboard");
+        } else {
+          console.log(error);
+        }
+      }
     }
-</script>
+  </script>
 
-
-<div class="login">
-    <div class="card">
-      <div class="card-body login-form">
-        <h5 class="card-title">{title}</h5>
-        <form on:submit|preventDefault={login}>
-          <div class="mb-3">
-            <label for="emailInput" class="form-label">Email address</label>
-            <input
-              type="email"
-              class="form-control"
-              id="emailInput"
-              aria-describedby="emailHelp"
-              placeholder="Email Address"
-            />
-            {#if title != "Login"}
-              <div id="emailHelp" class="form-text">
-                We'll never share your email with anyone else.
-              </div>
-            {/if}
-          </div>
-          <div class="mb-3">
-            <label for="passInput" class="form-label">Password</label>
-            <input
-              type="password"
-              class="form-control"
-              id="passInput"
-              placeholder="Password"
-            />
-          </div>
-          <button type="submit" class="btn btn-primary text-blue-500">Submit</button>
-        </form>
-        {#if title == "Login"}
-          <p class="float-end mt-3">
-            Not a user? <a href="/signup" class="card-link">Sign Up</a>
-          </p>
-        {/if}
-      </div>
-    </div>
+  <div class="loginFormContainer">
+    <h1>{title}</h1>
+    <form class="loginForm" on:submit|preventDefault={handleLogin}>
+      <input type="email" bind:value={email} placeholder="email@email.com" />
+      <input type="password" bind:value={password} placeholder="Password" />
+      <button type="submit">Login</button>
+    </form>
+    <a href="/signup">Not a Member? Sign up!</a>
   </div>
 
   <style>
-    .card {
-      width: 50%;
-      margin: 0 auto;
+    .loginFormContainer {
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+      background-color: #808080;
     }
-    .login {
-      margin-top: 50px;
-      margin-bottom: 50px;
+    .loginFormContainer > h1 {
+      font-family: "Oswald", sans-serif;
+      font-size: 3em;
+      margin: 0;
     }
-    .login-form {
-      width: 60%;
-      margin: 0 auto;
+    .loginForm {
+      display: flex;
+      flex-direction: column;
+      width: 30%;
     }
-    @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-      .login-form {
-        width: 90%;
-      }
-      .card {
-        width: 90%;
-      }
+    .loginForm * {
+      margin-top: 10px;
+    }
+    input {
+      width: 300px;
+      height: 40px;
+      border: none;
+      border-radius: 15px;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    input:focus {
+      outline: none;
+    }
+    button {
+      width: 100px;
+      height: 40px;
+      border: none;
+      background-color: rgb(9, 227, 9);
+      font-size: 1em;
+      border-radius: 15px;
+      box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+    a {
+      text-decoration: none;
+      color: rgb(9, 227, 9);
+      display: block;
+      margin-top: 10px;
     }
   </style>

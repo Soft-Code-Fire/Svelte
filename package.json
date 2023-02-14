@@ -12,6 +12,8 @@
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
+		"@supabase/auth-helpers-sveltekit": "^0.8.7",
+		"@supabase/supabase-js": "^2.7.1",
 		"@sveltejs/adapter-auto": "^1.0.2",
 		"@sveltejs/adapter-netlify": "^1.0.5",
 		"@sveltejs/adapter-vercel": "^1.0.6",
@@ -31,17 +33,19 @@
 		"@emotion/babel-preset-css-prop": "^11.10.0",
 		"@emotion/core": "^11.0.0",
 		"@emotion/react": "^11.10.5",
+		"@lucia-auth/sveltekit": "^0.6.3",
 		"@popperjs/core": "^2.11.6",
 		"@skeletonlabs/skeleton": "^0.124.2",
 		"bootstrap": "5.3.0-alpha1",
 		"bootstrap-icons": "^1.10.3",
-		"firebase": "^9.16.0",
-		"firebase-tools": "^11.21.0",
 		"jquery": "^3.6.3",
+		"lucia-auth": "^0.6.0",
 		"node": "^18.13.0",
+		"playwright": "^1.30.0",
 		"popper.js": "^1.16.1",
 		"sveltestrap": "^5.10.0",
 		"tw-elements": "1.0.0-alpha13",
-		"vercel": "^28.15.1"
+		"vercel": "^28.15.1",
+		"vitest": "^0.28.5"
 	}
 }
